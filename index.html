@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset=utf-8 />
+	<script src="js/addons/jquery-1.10.2.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.22/jquery-ui.min.js"></script>
+	<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+	<script src="js/addons/lightbox-2.6.min.js"></script>
+	<script src="js/addons/cryptojs.md5.js"></script>
+	<script src="js/controller.js"></script>
+	<script src="js/view.js"></script>
+	<script src="js/fModel.js"></script>
+	<script src="js/fAuth.js"></script>
+	<link rel="stylesheet" type="text/css" href="style/style.css">
+	<link rel="stylesheet" type="text/css" href="style/lightbox.css">
+	<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+	
+	<title>My Photo Album</title>
+</head>
+
+<body>
+	<div id="headerBar">
+		<div id="headerTitle">My Photo Album</div>
+			<div id="headerLogin">
+					<img class="flogo" src="img/flickr-logo.jpg">
+					<button id="loginButton" type="button" class="button splash line">Login</button>				
+			</div>
+	</div>
+	<div id="centerBody">
+		<div id="splashScreen">
+		<div id="animate"><img class="splashImg" src="photos/toby.jpg" alt="Toby Dog"></div>
+		<button type="button" id="continue" class="button splash large">Continue</button>
+		</div>
+			<div id="photoScreen">
+				<div id="centerSearch">
+					<p><button type="button" id="back" class="button splash large">Back</button></p>
+					<input id="goBox" type="text">
+					<input type="button" value="Search" id="goButton" class="button splash line">
+					<input type="button" value="Reset" id="resetButton" class="button splash line">
+				</div>				
+				<div id = "thumbnails">
+					<figure><a href="photos/mtgravatt.jpg" data-lightbox="defualt" title="City from Mt Gravatt lookout"><img class="thumbImg" src="photos/mtgravatt.jpg" alt="Mt Gravatt"></a>
+						<figcaption>City from Mt Gravatt lookout</figcaption>
+					</figure>
+					<figure><a href="photos/mtgravatt.jpg" data-lightbox="defualt" title="City from Mt Gravatt lookout"><img class="thumbImg" src="photos/mtgravatt.jpg" alt="Mt Gravatt"></a>
+						<figcaption>City from Mt Gravatt lookout</figcaption>
+					</figure>
+					<figure><a href="photos/mtgravatt.jpg" data-lightbox="defualt" title="City from Mt Gravatt lookout"><img class="thumbImg" src="photos/mtgravatt.jpg" alt="Mt Gravatt"></a>
+						<figcaption>City from Mt Gravatt lookout</figcaption>
+					</figure>
+					<figure><a href="photos/mtgravatt.jpg" data-lightbox="defualt" title="City from Mt Gravatt lookout"><img class="thumbImg" src="photos/mtgravatt.jpg" alt="Mt Gravatt"></a>
+						<figcaption>City from Mt Gravatt lookout</figcaption>
+					</figure>
+					<figure><a href="photos/mtgravatt.jpg" data-lightbox="defualt" title="City from Mt Gravatt lookout"><img class="thumbImg" src="photos/mtgravatt.jpg" alt="Mt Gravatt"></a>
+						<figcaption>City from Mt Gravatt lookout</figcaption>
+					</figure>
+					<figure><a href="photos/mtgravatt.jpg" data-lightbox="defualt" title="City from Mt Gravatt lookout"><img class="thumbImg" src="photos/mtgravatt.jpg" alt="Mt Gravatt"></a>
+						<figcaption>City from Mt Gravatt lookout</figcaption>
+					</figure>
+				</div>
+				
+			</div>
+	</div>
+		<div id="d" title="User Login">
+		<p>
+		Close this dialogue when you have finished logging in.</p>		
+		</div> 
+	<div id="footerBar">Created by James Dahms</div>
+</body>
+</html>
