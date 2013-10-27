@@ -3,8 +3,8 @@ var view = {};
 var controller = {};
 var fAuth = {};
 
-controller.username = ""
-controller.fullname = ""
+controller.username = "";
+controller.fullname = "";
 
 
 
@@ -12,10 +12,9 @@ var login = false;
 
 
 $(function (){
-	fModel.getIntPic(controller.photoReady);		
+    fModel.setAlbumPhotos(controller.photoReady);
+	//fModel.getIntPic(controller.photoReady);
 	$('#photoScreen').hide();
-	
-	//Setup dialog box
 	
 	
 	//Register Continue to Next screen button
@@ -30,7 +29,7 @@ $(function (){
 		$('#splashScreen').fadeIn(1000);
 		//Reset PhotoData and TextBox Data on Back Button Click
 		$('#goBox').val("");
-		fModel.getIntPic(controller.photoReady);
+        fModel.setAlbumPhotos(controller.photoReady);
 	});
 	
 	//Register goButton for searching
@@ -41,7 +40,7 @@ $(function (){
 	//Register resetButton for setting data back to default
 	$('#resetButton').click(function (){
 		$('#goBox').val("");
-		fModel.getIntPic(controller.photoReady);
+		fModel.setAlbumPhotos(controller.photoReady);
 		});
 		
 	//Register enter button for goBox test field
@@ -51,7 +50,7 @@ $(function (){
     }
 	});
 	//Register Login button for flickr login
-	$('#loginButton').click(function (){		
+	$('#loginButton').click(function (){
 		fAuth.login();
 		login = true;
 		$(function () {
@@ -64,11 +63,11 @@ $(function (){
 				hide: {
 					effect: "explode",
 					duration: 1000
-				}				
+				}
 			});
 		});
-		
-	});	
+
+	});
 	$('#d').bind('dialogclose', function(event){
 	if(login == true){
 			fAuth.getToken();
@@ -76,11 +75,16 @@ $(function (){
 			login = false;
 		}
 	});
+    //Register sortButton for sorting products by likes
+    $('#sortButton').click(function (){
+        fModel.sortPhotos(controller.photoReady,
+        $('#selectSortBox option:selected').val());
+    });
 });
 controller.photoReady = function(photos){
 	view.displayPhotos(photos);
-}
+};
 controller.setLogin = function(){
 		controller.fullname = fAuth.fullname;
 		console.log(controller.fullname);
-}
+};

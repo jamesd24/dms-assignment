@@ -19,10 +19,12 @@
 </head>
 
 <body>
+<div id="fb-root"></div>
+
 	<div id="headerBar">
-		<div id="headerTitle">My Photo Album</div>
+		<div id="headerTitle">Vintage Computers Online<br>Product Catalog</div>
 			<div id="headerLogin">
-					<img class="flogo" src="img/flickr-logo.jpg">
+					<img class="flogo" src="img/facebook-logo.png">
 					<button id="loginButton" type="button" class="button splash line">Login</button>				
 			</div>
 	</div>
@@ -37,6 +39,12 @@
 					<input id="goBox" type="text">
 					<input type="button" value="Search" id="goButton" class="button splash line">
 					<input type="button" value="Reset" id="resetButton" class="button splash line">
+                    <br>
+                    <input type="button" value="Sort" id="sortButton" class="button splash line">
+                    <select id = selectSortBox>
+                        <option value="dec">Descending</option>
+                        <option value="asc">Ascending</option>
+                    </select>
 				</div>				
 				<div id = "thumbnails">
 					<figure><a href="photos/mtgravatt.jpg" data-lightbox="defualt" title="City from Mt Gravatt lookout"><img class="thumbImg" src="photos/mtgravatt.jpg" alt="Mt Gravatt"></a>
@@ -63,7 +71,7 @@
 	</div>
 		<div id="d" title="User Login">
 		<p>
-		Close this dialogue when you have finished logging in.</p>		
+		</p>
 		</div> 
 	<div id="footerBar">Created by James Dahms</div>
 </body>

@@ -1,62 +1,66 @@
-fModel.API_KEY = "&api_key=6b25d31307a2e05fc11c95bbcd005601"
-fModel.numPhotos = 0;
-fModel.infoCount = 0;
+fModel.API_ID = "&api_id=1462321683993268";
+fModel.Secret = "ba49cc24256c5e930e7251ff78d69bee";
+fModel.getImages = "https://graph.facebook.com/362925810453628/photos?fields=name,images,likes&limit=50";
 fModel.photos = [];
 fModel.photoReady;
 
-fModel.getIntPic = function(callback){
-	fModel.photoReady = callback;
-	var interStr="http://api.flickr.com/services/rest/?method=flickr.interestingness.getList&per_page=20&format=json&nojsoncallback=1"+fModel.API_KEY;
-	interStr = fAuth.sign(interStr);
-	$.get(interStr, function(data){
-		//console.log(data);
-		getPhotos(data);
-		});
+
+//Get an array of photos from the group
+fModel.setAlbumPhotos = function(callback){
+    fModel.photoReady = callback;
+    fModel.photos = [];
+    $.get(fModel.getImages, function(data){
+        for (var i=0; i < data.data.length; i++){
+            var id = data.data[i].id;
+            var newPhoto = {id: id, description: data.data[i].name};
+            setPhotoUrl(data.data[i],newPhoto);
+            setLikeCount(data.data[i],newPhoto);
+            fModel.photos.push(newPhoto);
+        }
+        //console.log(fModel.photos);
+        fModel.photoReady(fModel.photos);
+    });
+};
+
+function setPhotoUrl(fBPhoto, photoObj){
+    photoObj.url = fBPhoto.images[0].source;
+    for (var i=0; i < fBPhoto.images.length; i++){
+        //Check all source strings to find the thumbnail image.
+        if(fBPhoto.images[i].source.indexOf('s320x320') > -1){
+            photoObj.thumb = fBPhoto.images[i].source;
+        }
+        else{
+            photoObj.thumb = fBPhoto.images[0].source;
+        }
+    }
 }
 
-fModel.searchPic = function(callback){
-	var goBox=$('#goBox').val();
-	goBox = "&text="+goBox;
-	goBox = goBox.trim();
-	var searchStr="http://api.flickr.com/services/rest/?method=flickr.photos.search&safe_search=1&per_page=20&format=json&nojsoncallback=1"+fModel.API_KEY+goBox;
-	searchStr = fAuth.sign(searchStr);
-	$.get(searchStr, function(data){
-		//console.log(data);
-		getPhotos(data);
-		});
-}
-	
-
-function getPhotos(data){
-	fModel.photos = [];
-	fModel.infoCount = 0;
-	fModel.numPhotos = data.photos.photo.length;
-	var photoArray = data.photos.photo;
-	for (var i=0; i < data.photos.photo.length; i++){
-		var id = data.photos.photo[i].id;
-		var newPhoto = {id: id, description: data.photos.photo[i].title};
-		fModel.photos.push(newPhoto);
-		callGetSize(id, newPhoto);
-	}
+function setLikeCount(fbPhoto, photoObj){
+    if(fbPhoto.likes != null){
+        photoObj.likes = fbPhoto.likes.data.length;
+    }
+    else{
+        photoObj.likes = 0;
+    }
 }
 
-function callGetSize(photoId, photoObj){
-	var getSizeStr = "http://api.flickr.com/services/rest/?method=flickr.photos.getSizes&format=json&nojsoncallback=1"+ fModel.API_KEY + "&photo_id="+photoId;
-	getSizeStr = fAuth.sign(getSizeStr);
-	$.get(getSizeStr, function(data){
-		var url = data.sizes.size[data.sizes.size.length-1].source;
-		for (var i = 0; i <  data.sizes.size.length; i++){
-			if (data.sizes.size[i].label == "Large")
-				url = data.sizes.size[i].source; 
-			else if (data.sizes.size[i].label == "Small")
-				photoObj.thumb = data.sizes.size[i].source;
-		}
-		photoObj.url = url;
-		fModel.infoCount ++;
-		//console.log(fModel.infoCount);
-		if (fModel.numPhotos == fModel.infoCount) {
-			fModel.photoReady(fModel.photos);
-		}
-		});
-}
+fModel.sortPhotos = function (callback, order) {
+    fModel.photoReady = callback;
 
+    if(order == "asc"){
+        fModel.photos.sort(function(a,b){
+            return a.likes- b.likes
+        });
+    }
+    else{
+        fModel.photos.sort(function(a,b){
+            return b.likes- a.likes
+        });
+    }
+    //console.log(fModel.photos);
+    fModel.photoReady(fModel.photos);
+};
+
+fModel.searchPhotos = function (callback, search){
+
+};
